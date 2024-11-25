@@ -1,23 +1,26 @@
 #include <iostream>
 using namespace std;
-
 bool dls(int graph[5][5], bool visited[], int node, int depth) {
-    if (depth == 0) return false;
+    if (depth < 0) return false; 
+    
     visited[node] = true;
-    cout << node << " ";
+    cout << node << " "; 
 
     for (int i = 0; i < 5; i++) {
-        if (graph[node][i] && !visited[i]) {
+        if (graph[node][i] && !visited[i]) { 
             if (dls(graph, visited, i, depth - 1)) return true;
         }
     }
-    return false;
+
+    return false; 
 }
 
 void iddfs(int graph[5][5], int start, int maxDepth) {
-    for (int depth = 1; depth <= maxDepth; depth++) {
+    for (int depth = 0; depth <= maxDepth; depth++) {
         bool visited[5] = {false};
-        if (dls(graph, visited, start, depth)) break;
+        cout << "Depth " << depth << ": ";
+        dls(graph, visited, start, depth);
+        cout << endl; 
     }
 }
 
@@ -27,6 +30,8 @@ int main() {
                        {0, 1, 0, 0, 1},
                        {1, 1, 0, 0, 1},
                        {0, 0, 1, 1, 0}};
+
     iddfs(graph, 0, 3);
+
     return 0;
 }
